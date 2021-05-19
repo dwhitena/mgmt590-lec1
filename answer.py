@@ -10,4 +10,4 @@ for idx, row in data.iterrows():
     question = row['question']
     answer = hg_comp({'question': question, 'context': context})['answer']
     print(answer)
-#This was fun!
+#This was very fun!
