@@ -1,7 +1,10 @@
 import pandas as pd
+import transformers
 from transformers.pipelines import pipeline
+from transformers import DebertaTokenizer, DebertaModel
 
-hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
+
+hg_comp = pipeline('question-answering', model='distilbert-base-cased-distilled-squad', tokenizer='bert-base-cased')
 
 data = pd.read_csv('examples.csv')
 
