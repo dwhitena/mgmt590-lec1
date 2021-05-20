@@ -9,7 +9,7 @@ from transformers.pipelines import pipeline
 hg_BERT = pipeline('question-answering', model="bert-base-multilingual-cased", tokenizer="distilbert-base-uncased-distilled-squad")
 
 # Loading the dataset
-data = pd.read_csv('examples.csv')
+df = pd.read_csv('examples.csv')
 
 #Creating a empty list to store the answers
 answer_li = []
