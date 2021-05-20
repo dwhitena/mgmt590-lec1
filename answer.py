@@ -5,8 +5,8 @@ import numpy as np
 # Importing Pipeline from transformer library
 from transformers.pipelines import pipeline
 
-# Calling the pipeline function by giving model argument as "bert-base-multilingual-cased" and tokenizer argument as "distilbert-base-uncased-distilled-squad"
-hg_BERT = pipeline('question-answering', model="bert-base-multilingual-cased", tokenizer="distilbert-base-uncased-distilled-squad")
+# Calling the pipeline function by giving model argument as "bert-base-multilingual-cased" and tokenizer argument as "bert-base-multilingual-cased"
+hg_BERT = pipeline('question-answering', model="bert-base-multilingual-cased", tokenizer="bert-base-multilingual-cased")
 
 # Loading the dataset
 data = pd.read_csv('examples.csv')
