@@ -21,7 +21,7 @@ for i, row in data.iterrows():
     answer = hg_BERT({'question': question, 'context': context})['answer']
     answer_li.append(answer)
 
-# Creating a new dataframe to store the data from Context, Question and Answers
+# Creating a new dataframe to store the data from Context, Question and Answers in one place, for a better visualization
 df_new = pd.DataFrame()
 df_new['context'] = data['context']
 df_new['question'] = data['question']
