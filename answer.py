@@ -1,12 +1,19 @@
+# Importing Libraries
 import pandas as pd
-from transformers.pipelines import pipeline
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 
-hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
-
+# Importing Data
 data = pd.read_csv('examples.csv')
 
+# Modelling
+model_name = "deepset/roberta-base-squad2"
+
+nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
+
+# Iterating over each row
 for idx, row in data.iterrows():
     context = row['context']
     question = row['question']
-    answer = hg_comp({'question': question, 'context': context})['answer']
+    answer = nlp({'question': question, 'context': context})['answer']
+    print(question)
     print(answer)
