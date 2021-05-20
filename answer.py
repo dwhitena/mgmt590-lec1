@@ -1,6 +1,7 @@
 #Importing Libraries
 import pandas as pd
 import numpy as np
+import glob
 
 # Importing Pipeline from transformer library
 from transformers.pipelines import pipeline
@@ -9,7 +10,10 @@ from transformers.pipelines import pipeline
 hg_BERT = pipeline('question-answering', model="bert-base-multilingual-uncased", tokenizer="bert-base-multilingual-uncased")
 
 # Loading the dataset
-data = pd.read_csv('examples.csv')
+data = pd.DataFrame()
+for f in glob.glob(r"C:\Users\abhin\OneDrive\Desktop\qachat\*.csv"):
+    df = pd.read_csv(f)
+    data = data.append(df,ignore_index=True)
 
 #Creating a empty list to store the answers
 answer_li = []
