@@ -5,3 +5,9 @@
 3) Architecture of the model - 12-layer, 768-hidden, 12-heads, 179M parameters. 
 4) Reason for using this model is that it is pre trained on multi lingual language, so it can help the client to scale the project across diff geographical location
 5) Enjoy the code :) 
+
+
+
+
+![image](https://user-images.githubusercontent.com/84475578/119045594-ab44c100-b989-11eb-812f-236d12651e30.png)
+
