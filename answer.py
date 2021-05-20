@@ -9,5 +9,5 @@ for idx, row in data.iterrows():
     context = row['context']
     question = row['question']
     answer = hg_comp({'question': question, 'context': context})['answer']
-    print(question, end='  ->  ')
+    print(question, end='  ->   ')
     print(answer)
