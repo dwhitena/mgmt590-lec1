@@ -13,4 +13,4 @@ for idx, row in data.iterrows():
     context = row['context']
     question = row['question']
     answer = hg_comp({'question': question, 'context': context})['answer']
-    print("The answer to the question: \n" + question + "Ans: " + answer)
+    print("The answer to the question: \n" + question + "\nAns: " + answer)
