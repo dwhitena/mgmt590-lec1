@@ -1,12 +1,18 @@
+#Importing Libraries
 import pandas as pd
 from transformers.pipelines import pipeline
 
-hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
-
+#Applying the model; link: https://huggingface.co/deepset/roberta-base-squad2)
+nlp = pipeline('question-answering', model=model_name, tokenizer="deepset/roberta-base-squad2")
+#Reading csv
 data = pd.read_csv('examples.csv')
 
+#Iterating
 for idx, row in data.iterrows():
     context = row['context']
     question = row['question']
-    answer = hg_comp({'question': question, 'context': context})['answer']
+    answer = nlp({'question': question, 'context': context})['answer']
+    print(question)
     print(answer)
+    
+   
