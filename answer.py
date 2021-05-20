@@ -9,7 +9,8 @@ from transformers.pipelines import pipeline
 # Calling the pipeline function by giving model argument as "bert-base-multilingual-uncased" and tokenizer argument as "bert-base-multilingual-uncased"
 hg_BERT = pipeline('question-answering', model="bert-base-multilingual-uncased", tokenizer="bert-base-multilingual-uncased")
 
-# Loading the dataset
+# Using the Glob function to automate the process of importing multiple Question-Answering Csv files in one go.
+# All the Csv files should have same number and types of columns.
 data = pd.DataFrame()
 for f in glob.glob(r"C:\Users\abhin\OneDrive\Desktop\qachat\*.csv"):
     df = pd.read_csv(f)
