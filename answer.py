@@ -1,3 +1,4 @@
+import pandas as pd
 from transformers.pipelines import pipeline
 
 hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
