@@ -60,7 +60,7 @@ def getanswer(que: str, context: str):
     input = {
         "question": que, "context": context
     }
-    return hg_comp(input)['answer']
+    return model1(input)['answer']
 
 gr.Interface(fn=getanswer, inputs=["textbox", "text"], outputs= "text" ).launch()
 
