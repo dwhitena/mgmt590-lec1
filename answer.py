@@ -4,9 +4,8 @@ from transformers import BertForQuestionAnswering, AutoTokenizer
 from transformers import BertTokenizer, BertModel
 
 # Model 1 - Cased Bert base model
-modelname = 'deepset/bert-base-cased-squad2'
-model1 = BertForQuestionAnswering.from_pretrained(modelname)
-tokenizer1 = AutoTokenizer.from_pretrained(modelname)
+model1 = BertForQuestionAnswering.from_pretrained('deepset/bert-base-cased-squad2')
+tokenizer1 = AutoTokenizer.from_pretrained('deepset/bert-base-cased-squad2')
 modelBC = pipeline('question-answering', model = model1, tokenizer = tokenizer1)
 
 
