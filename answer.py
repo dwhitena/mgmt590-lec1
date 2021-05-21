@@ -14,7 +14,7 @@ for idx, row in data.iterrows():
     answer = hg_comp({'question': question, 'context': context})['answer']
     print(answer)
     answer_dict = hg_comp({'question': question, 'context': context})
-    answer_finetuned = hg_comp_finetuned({'question': question, 'context': context})
+    answer_finetuned = hg_comp_fine_tuned({'question': question, 'context': context})
 
 answer =''
 if answer_dict['score'] > answer_finetuned['score']:
