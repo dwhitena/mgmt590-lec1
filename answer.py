@@ -2,7 +2,7 @@ import pandas as pd
 from transformers.pipelines import pipeline
 
 hg_comp =  pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
-hg_comp_fine_tuned = pipeline('question-answering', model="mrm8488/bert-multi-cased-finetuned-xquadv1", tokenizer="distilbert-base-uncased-distilled-squad")
+hg_comp_fine_tuned = pipeline('question-answering', model="distilbert-base-multilingual-cased", tokenizer="distilbert-base-multilingual-cased")
 german_translator = pipeline("translation_en_to_de")
 french_translator = pipeline("translation_en_to_fr")
 
