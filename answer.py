@@ -1,7 +1,7 @@
 import pandas as pd
 from transformers.pipelines import pipeline
 
-hg_comp = pipeline('question-answering', model='bert-base-cased-squad2', tokenizer='distilbert-base-uncased-squad')
+hg_comp = pipeline('question-answering', model='bert-base-cased-squad2', tokenizer='bert-case-cased-squad2')
 
 data = pd.read_csv('examples.csv')
 
