@@ -8,6 +8,8 @@ for idx, row in data.iterrows():
     context = row['context']
     question = row['question']
     print("The question is", question)
+
+    #define dictionaries to store score and answer mapped to each model
     model_score = {}
     model_answer = {}
     # generate answer using different models
