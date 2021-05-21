@@ -3,7 +3,7 @@
 This is a readme file.
 The script answer.py contains a python code to answer the question asked based on the information provided in the context.
 The questions are contained in a csv file called examples.csv with questions under the column "questions" and context under the column "context".
-Our code uses multiple models to provide answers and confidence scores for each answer.
+The code uses multiple models to provide answers and confidence scores for each answer, and then choose the model with the highest confidence score to provide the answer.
 
 ## Model Description
 
