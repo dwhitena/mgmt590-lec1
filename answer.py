@@ -36,4 +36,3 @@ for idx, row in data.iterrows():
     data.at[idx,'Answer3'] = answer3
 
 data.to_csv("Sample_answers.csv",index=False)
-print(data)
