@@ -12,6 +12,8 @@ for idx, row in data.iterrows():
     context = row['context']
     question = row['question']
     answer = hg_comp({'question': question, 'context': context})['answer']
+    print(context)
+    print(question)
     print(answer)
     answer_dict = hg_comp({'question': question, 'context': context})
     answer_finetuned = hg_comp_fine_tuned({'question': question, 'context': context})
@@ -23,10 +25,10 @@ else:
     answer = answer_finetuned['score']
     print(answer)
     #question in french
-    print(french_translator(question, max_length=40))
+    print("Question in french " ,french_translator(question, max_length=40))
     #answer in french
     print(french_translator(answer, max_length=40))
     #question in german
-    print(german_translator(question, max_length=40))
+    print("Question in german " ,german_translator(question, max_length=40))
     #answer in german
     print(german_translator(answer, max_length =40))
