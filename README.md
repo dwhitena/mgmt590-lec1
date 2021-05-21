@@ -39,7 +39,7 @@ hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distille
 
 ## Model Fitting
 We have iterated over different rows to get the result for each of the question from the context column. 
-As the size of the dataset is small, I have added the results of each of the model to see which model performs the best.
+
 ```
 for idx, row in data.iterrows():
     context = row['context']
@@ -51,4 +51,4 @@ for idx, row in data.iterrows():
     answer3 = hg_comp({'question': question, 'context': context})['answer']
     print("Answer from Uncased DistilBert base model: "answer3)
 ```
-
+There are a lot of models available for question answering. so it is important to compare results from different models so we know which model will work the best for our dataset. As the size of the dataset is small, I have added the results of each of the model to see which model performs the best. 
