@@ -3,8 +3,9 @@ import pandas as pd
 from transformers.pipelines import pipeline
 from flask import Flask
 from flask import request
-from flask import jsonify
 
+from flask import jsonify
+import mysql.connector
 # Create my flask app
 app = Flask(__name__)
 
