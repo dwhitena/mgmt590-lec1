@@ -1,47 +1,21 @@
 import pandas as pd
 from transformers.pipelines import pipeline
-from flask import Flask
-from flask import request
-from flask import jsonify
 
-# Create my flask app
-app = Flask(__name__)
+model = "madlag/bert-base-uncased-squadv1-x2.32-f86.6-d15-hybrid-v1"
+tokenizer = "madlag/bert-base-uncased-squadv1-x2.32-f86.6-d15-hybrid-v1"
 
+hg_comp = pipeline('question-answering',
+                   model=model,
+                   tokenizer=tokenizer
+                   )
 
-# Define a handler for the / path, which
-# returns "Hello World"
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+path_str = "C:/Users/saite/Desktop/Masters/1.Purdue/Course Material/3.Sum Mod 1/MGMT 590 PSD/2.Assignments/examples.csv"
 
+data = pd.read_csv(path_str)
 
-# Define a handler for the /answer path, which
-# processes a JSON payload with a question and
-# context and returns an answer using a Hugging
-# Face model.
-@app.route("/answer", methods=['POST'])
-def answer():
-    # Get the request body data
-    data = request.json
-
-    # Import model
-    hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad",
-                       tokenizer="distilbert-base-uncased-distilled-squad")
-
-    # Answer the answer
-    answer = hg_comp({'question': data['question'], 'context': data['context']})['answer']
-
-    # Create the response body.
-    out = {
-        "question": data['question'],
-        "context": data['context'],
-        "answer": answer
-    }
-
-    return jsonify(out)
-
-
-# Run if running "python answer.py"
-if __name__ == '__main__':
-    # Run our Flask app and start listening for requests!
-    app.run(host='0.0.0.0', port=8000, threaded=True)
+for idx, row in data.iterrows():
+    context = row['context']
+    question = row['question']
+    answer = hg_comp({'question': question, 'context': context})['answer']
+    print('Question',idx+1,": ",question)
+    print("Answer",idx+1,": ",answer)
