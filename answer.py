@@ -1,44 +1,52 @@
-import pandas as pd
-from transformers.pipelines import pipeline
+import os
 
+from transformers.pipelines import pipeline
+from flask import Flask
+from flask import request
+from flask import jsonify
+
+# Import model
 hg_comp = pipeline('question-answering', model="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased-distilled-squad")
 
-data = pd.read_csv('examples.csv')
-print("--(1)--------Using distilbert-base-uncased-distilled-squad Model ---------------------------\n")
-for idx, row in data.iterrows():
-    context = row['context']
-    question = row['question']
-    answer = hg_comp({'question': question, 'context': context})['answer']
-    print(f"Question: {question}")
-    print(f"Answer: {answer}\n")
+# Create my flask app
+app = Flask(__name__)
 
+# Define a handler for the / path, which
+# returns "Hello World"
+@app.route("/")
+def hello_world():
+    return "<p>Hello World!</p>"
 
-print("--(2)----------------Using bert-large-uncased-whole-word-masking-finetuned-squad Model ------------------\n")
-from transformers import AutoTokenizer, AutoModelForQuestionAnswering
-import torch
+@app.route("/models", methods=['GET'])
+def models():
+    ...
 
-tokenizer = AutoTokenizer.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
-model = AutoModelForQuestionAnswering.from_pretrained("bert-large-uncased-whole-word-masking-finetuned-squad")
+# Define a handler for the /answer path, which
+# processes a JSON payload with a question and
+# context and returns an answer using a Hugging
+# Face model.
+@app.route("/answer", methods=['POST'])
+def answer():
 
-qs = data['question']
-contexts = data['context']
-i=0
+    # Get the request body data
+    data = request.json
 
-for question in qs:
-    context = str(contexts[i])
-    i = i+1
+    
+    
+    # Answer the answer
+    answer = hg_comp({'question': data['question'], 'context': data['context']})['answer']
 
-    inputs = tokenizer.encode_plus(question, context, add_special_tokens=True, return_tensors="pt")
-    input_ids = inputs["input_ids"].tolist()[0]
-    text_tokens = tokenizer.convert_ids_to_tokens(input_ids)
-    answer_start_scores, answer_end_scores = model(**inputs,return_dict=False)
+    # Create the response body.
+    out = {
+            "question": data['question'],
+            "context": data['context'],
+            "answer": answer
+            }
 
-    answer_start = torch.argmax(
-        answer_start_scores
-    )  # Get the most likely beginning of answer with the argmax of the score
-    answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
+    return jsonify(out)
 
-    answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
+# Run if running "python answer.py"
+if __name__ == '__main__':
 
-    print(f"Question: {question}")
-    print(f"Answer: {answer}\n")
+    # Run our Flask app and start listening for requests!
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)), threaded=True)
