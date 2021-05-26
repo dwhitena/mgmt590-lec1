@@ -15,7 +15,7 @@ app = Flask(__name__)
 # returns "Hello World"
 @app.route("/")
 def hello_world():
-    return "<p>Hello some World!</p>"
+    return "<p>Hello somse World!</p>"
 
 @app.route("/models", methods=['GET'])
 def models():
