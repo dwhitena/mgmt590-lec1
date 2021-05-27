@@ -2,7 +2,7 @@
 import pandas as pd
 from transformers.pipelines import pipeline
 
-#Use huggingface transformers
+#Use  huggingface transformers
 hg_comp = pipeline('question-answering', model="mrm8488/bert-small-finetuned-squadv2", tokenizer="mrm8488/bert-small-finetuned-squadv2")
 
 #Input the data
