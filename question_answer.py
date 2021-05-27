@@ -1,14 +1,15 @@
 #importing libraries
-import pandas as pd
+#import pandas as pd
 import sqlite3
 from transformers.pipelines import pipeline
 from flask import Flask
 from flask import request
 from flask import jsonify
-import mysql.connector
+#import mysql.connector
 from flask import json
 import time
 import os
+
 
 
 app = Flask(__name__)
@@ -108,7 +109,7 @@ def models():
             list1.append(out)
         return json.jsonify(list1)
 
-conn.execute('CREATE TABLE answered (timestamp DATETIME, model TEXT, answer TEXT, question TEXT, context TEXT)')
+conn.execute('CREATE TABLE if not exists answered (timestamp DATETIME, model TEXT, answer TEXT, question TEXT, context TEXT)')
 
 @app.route("/answer", methods=['POST','GET'])
 def answer():
@@ -127,8 +128,7 @@ def answer():
         answer = hg_comp({'question': data['question'], 'context': data['context']})['answer']
         timestamp = int(time.time())
         sql_insertanswer_query = "insert into answered (timestamp, model, answer,question,context) values(?,?,?,?,?)"
-        cursor.execute(sql_insertanswer_query,  (timestamp,model_name,answer,data['question'],data['answer']))
-        print(inserted)
+        cursor.execute(sql_insertanswer_query,  (timestamp,model_name,answer,data['question'],data['context']))
         conn1.commit()
         out = {
             "timestamp": timestamp,
@@ -151,9 +151,9 @@ def answer():
             query += "and model = ?"
             params += model_name
         cursor.execute(query,params)
-        records = cursor.fetchall()
+        rows = cursor.fetchall()
         list1 = []
-        for records in records:
+        for row in rows:
             out = {
                 "timestamp": row[0],
                 "answer":row[1],
@@ -169,3 +169,4 @@ def answer():
 if __name__ == '__main__':
     # Run our Flask app and start listening for requests!
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 8080)), threaded=True)
+
