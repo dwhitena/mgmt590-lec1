@@ -11,7 +11,6 @@ import time
 import os
 
 
-
 app = Flask(__name__)
 conn = sqlite3.connect('database.db')
 
@@ -21,7 +20,7 @@ listOfTables = conn.execute(
 
 if listOfTables==[]:
     cur = conn.cursor()
-    conn.execute('create table models (name varchar(100),model varchar(100),tokenizer varchar(100))')
+    conn.execute('create table models (name varchar(100),tokenizer varchar(100),model varchar(100))')
     sql_insert_query1 = "insert into models values(" + "'" + "distilled-bert" + "'" + "," \
                         + "'" + "distilbert-base-uncased-distilled-squad" + "'" + "," + "'" + \
                         "distilbert-base-uncased-distilled-squad" + "'" + ")"
@@ -35,8 +34,6 @@ if listOfTables==[]:
     cur.execute(sql_insert_query2)
     cur.execute(sql_insert_query3)
     conn.commit()
-
-
 else:
     print("table exists")
 
@@ -54,8 +51,8 @@ def models():
         for record in records:
             out = {
                 "name": record[0],
-                "tokenizer": record[2],
-                "model": record[1]
+                "tokenizer": record[1],
+                "model": record[2]
             }
             list1.append(out)
         return json.jsonify(list1)
@@ -66,7 +63,7 @@ def models():
         conn1 = sqlite3.connect('database.db')
 
         sql_insert_query = "insert into models values(" + "'" + data['name']+"'" + "," \
-                           +"'"+ data['model'] + "'" + "," + "'" + data["tokenizer"]+"'" + ")"
+                           +"'"+ data['tokenizer'] + "'" + "," + "'" + data['model']+"'" + ")"
         cursor = conn1.cursor()
         cursor.execute(sql_insert_query)
         conn1.commit()
@@ -79,8 +76,8 @@ def models():
         for record in records:
             out = {
                 "name": record[0],
-                "tokenizer": record[2],
-                "model": record[1]
+                "tokenizer": record[1],
+                "model": record[2]
             }
             list1.append(out)
         return json.jsonify(list1)
@@ -103,8 +100,8 @@ def models():
         for record in records:
             out = {
                 "name": record[0],
-                "tokenizer": record[2],
-                "model": record[1]
+                "tokenizer": record[1],
+                "model": record[2]
             }
             list1.append(out)
         return json.jsonify(list1)
@@ -123,7 +120,7 @@ def answer():
         row = cursor.fetchone()
 
     # Import model
-        hg_comp = pipeline('question-answering', model=row[1],tokenizer= row[2])
+        hg_comp = pipeline('question-answering', model=row[2],tokenizer= row[1])
     # Answer the answer
         answer = hg_comp({'question': data['question'], 'context': data['context']})['answer']
         timestamp = int(time.time())
@@ -149,7 +146,7 @@ def answer():
         if 'model' in request.args:
             model_name = request.args.get('model')
             query += "and model = ?"
-            params += model_name
+            params += model_name,
         cursor.execute(query,params)
         rows = cursor.fetchall()
         list1 = []
