@@ -9,7 +9,7 @@ tokenizer1 = AutoTokenizer.from_pretrained('deepset/bert-base-cased-squad2')
 modelBC = pipeline('question-answering', model = model1, tokenizer = tokenizer1)
 
 
-#Model 2 - Uncased Bert base model
+#Model 2 - Uncased Bert base model__
 tokenizer2 = BertTokenizer.from_pretrained('bert-base-uncased')
 model2 = BertModel.from_pretrained("bert-base-uncased")
 modelUBC = pipeline('question-answering', model = model2, tokenizer = model2)
